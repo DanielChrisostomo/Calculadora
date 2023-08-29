@@ -27,6 +27,14 @@ class Calculator {
         operationValue = previous + current;
         this.updateScreen(operationValue, operation, current, previous);
         break;
+      case "-":
+        operationValue = previous - current;
+        this.updateScreen(operationValue, operation, current, previous);
+        break;
+      case "*":
+        operationValue = previous * current;
+        this.updateScreen(operationValue, operation, current, previous);
+        break;
       default:
         return;
     }
@@ -53,7 +61,7 @@ class Calculator {
 
 const calc = new Calculator(previousOperationText, currentOperationText);
 
-function callback(e) {
+function callBack(e) {
   const value = e.target.innerText;
   if (+value >= 0 || value === ".") {
     calc.addDigit(value);
@@ -63,5 +71,5 @@ function callback(e) {
 }
 
 buttons.forEach((item) => {
-  item.addEventListener("click", callback);
+  item.addEventListener("click", callBack);
 });
