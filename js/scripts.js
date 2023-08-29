@@ -18,6 +18,13 @@ class Calculator {
   }
 
   processOperation(operation) {
+    if (this.currentOperationText.innerText === "" && operation !== "C") {
+      if (this.previousOperationText.innerText !== "") {
+        this.changeOperation(operation);
+      }
+      return;
+    }
+
     let operationValue;
     const previous = +this.previousOperationText.innerText.split(" ")[0];
     const current = +this.currentOperationText.innerText;
@@ -38,6 +45,18 @@ class Calculator {
       case "*":
         operationValue = previous * current;
         this.updateScreen(operationValue, operation, current, previous);
+        break;
+      case "DEL":
+        this.processDelOperator();
+        break;
+      case "CE":
+        this.processClearCurrentOperation();
+        break;
+      case "C":
+        this.processClearOperation();
+        break;
+      case "=":
+        this.processEqualOperator();
         break;
       default:
         return;
@@ -60,6 +79,36 @@ class Calculator {
       this.previousOperationText.innerText = `${operationValue} ${operation}`;
       this.currentOperationText.innerText = "";
     }
+  }
+
+  changeOperation(operation) {
+    const mathOperations = ["*", "/", "+", "-"];
+
+    if (!mathOperations.includes(operation)) {
+      return;
+    }
+    this.previousOperationText.innerText =
+      this.previousOperationText.innerText.slice(0, -1) + operation;
+  }
+
+  processDelOperator() {
+    this.currentOperationText.innerText =
+      this.currentOperationText.innerText.slice(0, -1);
+  }
+
+  processClearCurrentOperation() {
+    this.currentOperationText.innerText = "";
+  }
+
+  processClearOperation() {
+    this.currentOperationText.innerText = "";
+    this.previousOperationText.innerText = "";
+  }
+
+  processEqualOperator() {
+    const operation = previousOperationText.innerText.split(" ")[1];
+
+    this.processOperation(operation);
   }
 }
 
