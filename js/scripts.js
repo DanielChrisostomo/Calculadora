@@ -114,15 +114,15 @@ class Calculator {
 
 const calc = new Calculator(previousOperationText, currentOperationText);
 
-function callBack(e) {
-  const value = e.target.innerText;
-  if (+value >= 0 || value === ".") {
-    calc.addDigit(value);
-  } else {
-    calc.processOperation(value);
-  }
-}
+buttons.forEach((btn) => {
+  btn.addEventListener("click", (e) => {
+    const value = e.target.innerText;
 
-buttons.forEach((item) => {
-  item.addEventListener("click", callBack);
+    if (+value >= 0 || value === ".") {
+      console.log(value);
+      calc.addDigit(value);
+    } else {
+      calc.processOperation(value);
+    }
+  });
 });
